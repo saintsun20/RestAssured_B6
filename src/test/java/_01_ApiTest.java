@@ -19,7 +19,7 @@ public class _01_ApiTest {
                         when().
                 //2.blümle ilgili işler : metod , endpoint
                         then()
-        //3.bölümle ilgili işler: gelen data, assert,test
+                //3.bölümle ilgili işler: gelen data, assert,test
         ;
     }
 
@@ -74,6 +74,113 @@ public class _01_ApiTest {
 //    });
 
         ;
+    }
+
+    @Test
+    public void checkCountryInResponseBody2(){
+        // Soru : "http://api.zippopotam.us/us/90210"  endpoint inden dönen
+        // place dizisinin ilk elemanının state değerinin  "California"
+        // olduğunu doğrulayınız
+
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .log().body()
+                .body("places[0].state", equalTo("California")) // places in 0. elamanının state i California mı?
+        ;
+    }
+
+    @Test
+    public void checkHasItem(){
+        // Soru : "http://api.zippopotam.us/tr/01000"  endpoint in dönen
+        // place dizisinin herhangi bir elemanında  "Dörtağaç Köyü" değerinin
+        // olduğunu doğrulayınız
+
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/tr/01000")
+
+                .then()
+                .body("places.'place name'", hasItem("Dörtağaç Köyü")) // places içindeki bütün place name lerin
+                                                                          // içinde Dörtağaç Köyü var mı?
+        ;
+    }
+
+    @Test
+    public void bodyArrayHasSizeTest(){
+        // Soru : "http://api.zippopotam.us/us/90210"  endpoint in dönen
+        // place dizisinin dizi uzunluğunun 1 olduğunu doğrulayınız.
+
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .body("places", hasSize(1)) // places in eleman uzunluğu 1 mi
+        ;
+    }
+
+    @Test
+    public void combiningTest(){
+
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .body("places", hasSize(1))
+                .body("places[0].state", equalTo("California"))
+                .body("places.'place name'", hasItem("Beverly Hills"))
+                // Yukarıda olduğu gibi istenilen kadar test eklenebilir.
+       ;
+    }
+
+    @Test
+    public void pathParamTest(){
+
+        given()
+                .pathParam("ulke", "us")
+                .pathParam("postaKodu", 90210)
+                .log().uri() // oluşacak endpoint i yazdıralım
+
+                .when()
+                .get("http://api.zippopotam.us/{ulke}/{postaKodu}") //path param
+
+                .then()
+                .log().body()
+        ;
+    }
+
+    @Test
+    public void queryParamTest(){
+        // https://gorest.co.in/public/v1/users?page=3
+
+        given()
+                .param("page", 3)
+                .log().uri()
+
+                .when()
+                .get("https://gorest.co.in/public/v1/users") // URL kısmını buraya yazıldı
+
+                .then()
+                .log().body()
+        ;
+
+    }
+
+    @Test
+    public void queryParamTest2U(){
+        // https://gorest.co.in/public/v1/users?page=3
+        // bu linkteki 1 den 10 kadar sayfaları çağırdığınızda response daki donen page degerlerinin
+        // çağrılan page nosu ile aynı olup olmadığını kontrol ediniz.
+
+
     }
 }
 
