@@ -72,7 +72,7 @@
 
                     <!--  CLASS çalıştırmak için  -->
                     <includes>
-                        <include>/_05_Tasks.java</include>  <!-- / projenin neresinde ise bul  -->
+                        <include>/_04_ApiTestPOJO</include>  <!-- / projenin neresinde ise bul  -->
                     </includes>
 
                 </configuration>
