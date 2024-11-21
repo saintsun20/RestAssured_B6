@@ -83,9 +83,9 @@ public class _07_GoRestUsersTest {
     @Test(dependsOnMethods = "GetUserById")   // bu aşamadan sonra class çalıştırılmalı
     public void UpdateUser()
     {
-        String updName="İsmet Temur";
+        String updName = "Aziz Güneş";
 
-        Map<String,String> updUser=new HashMap<>();
+        Map<String,String> updUser = new HashMap<>();
         updUser.put("name",updName);
 
         given()
